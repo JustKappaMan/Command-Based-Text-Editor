@@ -23,7 +23,7 @@ class Document:
         if not path.exists():
             sys.exit('You must pass an existing path as a CL argument!')
         elif not path.is_file():
-            sys.exit('You must pass a path as a CL argument!')
+            sys.exit('You must pass a filepath as a CL argument!')
         else:
             return path
 
@@ -58,9 +58,11 @@ class Document:
         pass
 
     def clear(self):
-        pass
+        self.back_up()
+        self.current_content.clear()
 
     def undo(self):
+        self.back_up()
         self.current_content = copy.deepcopy(self.previous_content)
 
     def save(self):
