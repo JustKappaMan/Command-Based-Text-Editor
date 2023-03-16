@@ -34,16 +34,20 @@ class Document:
     def back_up(self):
         self.previous_content = copy.deepcopy(self.current_content)
 
+    @property
+    def number_of_lines(self):
+        return len(self.current_content)
+
     def insert_line(self, text, row=None, column=None):
         self.back_up()
 
         if row and column:
-            if 1 <= row <= len(self.current_content):
+            if 1 <= row <= self.number_of_lines:
                 if 1 <= column < len(self.current_content[row - 1]):
                     row_content = self.current_content[row - 1]
                     self.current_content[row - 1] = ''.join((row_content[:column], text, row_content[column:]))
         elif row:
-            if 1 <= row <= len(self.current_content):
+            if 1 <= row <= self.number_of_lines:
                 self.current_content[row - 1] = self.current_content[row - 1].removesuffix('\n')
                 self.current_content[row - 1] += f'{text}\n'
         else:
