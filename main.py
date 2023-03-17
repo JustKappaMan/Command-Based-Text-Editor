@@ -66,7 +66,7 @@ class Document:
             self.current_content.append(text)
 
     def delete_line(self, line: int = None) -> None:
-        if line:
+        if line is not None:
             if 1 <= line <= self.number_of_lines:
                 self.back_up()
                 del self.current_content[line - 1]
