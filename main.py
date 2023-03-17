@@ -8,13 +8,13 @@ def main():
 
 
 class Document:
-    def __init__(self):
-        self.path = Document.get_path()
-        self.current_content = self.get_lines()
-        self.previous_content = copy.deepcopy(self.current_content)
+    def __init__(self) -> None:
+        self.path: pathlib.Path = Document.extract_path()
+        self.current_content: list[str] = self.get_lines()
+        self.previous_content: list[str] = copy.deepcopy(self.current_content)
 
     @staticmethod
-    def get_path():
+    def extract_path() -> pathlib.Path:
         if len(sys.argv) != 2:
             sys.exit('Wrong number of CL arguments! Check README for details.')
         else:
@@ -27,18 +27,18 @@ class Document:
         else:
             return path
 
-    def get_lines(self):
+    def get_lines(self) -> list[str]:
         with self.path.open('r') as file:
             return file.readlines()
 
-    def back_up(self):
+    def back_up(self) -> None:
         self.previous_content = copy.deepcopy(self.current_content)
 
     @property
-    def number_of_lines(self):
+    def number_of_lines(self) -> int:
         return len(self.current_content)
 
-    def insert_line(self, text, row=None, column=None):
+    def insert_line(self, text: str, row: int = None, column: int = None) -> None:
         self.back_up()
 
         if row and column:
@@ -55,25 +55,25 @@ class Document:
                 self.current_content[-1] += '\n'
             self.current_content.append(text)
 
-    def delete_line(self, row=None):
+    def delete_line(self, row: int = None) -> None:
         pass
 
-    def swap_lines(self, row1, row2):
+    def swap_lines(self, row1: int, row2: int) -> None:
         pass
 
-    def clear(self):
+    def clear(self) -> None:
         self.back_up()
         self.current_content.clear()
 
-    def undo(self):
+    def undo(self) -> None:
         self.back_up()
         self.current_content = copy.deepcopy(self.previous_content)
 
-    def save(self):
+    def save(self) -> None:
         with self.path.open('w+') as file:
             file.writelines(self.current_content)
 
-    def close(self):
+    def close(self) -> None:
         pass
 
 
