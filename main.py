@@ -56,7 +56,15 @@ class Document:
             self.current_content.append(text)
 
     def delete_line(self, row: int = None) -> None:
-        pass
+        if row:
+            if 1 <= row <= self.number_of_lines:
+                self.back_up()
+                del self.current_content[row - 1]
+            else:
+                sys.exit(f"Error! You can't delete the line №{row}. "
+                         f'The number of lines in the file: {self.number_of_lines}.')
+        else:
+            sys.exit('Error! You must specify the number of the line you want to delete.')
 
     def swap_lines(self, row1: int, row2: int) -> None:
         pass
