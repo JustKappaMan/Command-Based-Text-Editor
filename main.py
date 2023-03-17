@@ -39,18 +39,28 @@ class Document:
         return len(self.current_content)
 
     def insert_line(self, text: str, line: int = None, column: int = None) -> None:
-        self.back_up()
-
-        if line and column:
+        if line is not None and column is not None:
             if 1 <= line <= self.number_of_lines:
                 if 1 <= column < len(self.current_content[line - 1]):
+                    self.back_up()
                     line_content = self.current_content[line - 1]
                     self.current_content[line - 1] = ''.join((line_content[:column], text, line_content[column:]))
-        elif line:
+                else:
+                    sys.exit("Error! You can't insert the line at this position. "
+                             f'The number of characters in the target line: {len(self.current_content[line - 1])}.')
+            else:
+                sys.exit("Error! You can't insert the line at this position. "
+                         f'The number of lines in the file: {self.number_of_lines}.')
+        elif line is not None:
             if 1 <= line <= self.number_of_lines:
+                self.back_up()
                 self.current_content[line - 1] = self.current_content[line - 1].removesuffix('\n')
                 self.current_content[line - 1] += f'{text}\n'
+            else:
+                sys.exit("Error! You can't insert the line at this position. "
+                         f'The number of lines in the file: {self.number_of_lines}.')
         else:
+            self.back_up()
             if not self.current_content[-1].endswith('\n'):
                 self.current_content[-1] += '\n'
             self.current_content.append(text)
