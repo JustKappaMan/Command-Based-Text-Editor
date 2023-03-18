@@ -111,7 +111,6 @@ class Document:
         self.current_content.clear()
 
     def undo(self) -> None:
-        self.back_up()
         self.current_content = copy.deepcopy(self.previous_content)
 
     def save(self) -> None:
