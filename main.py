@@ -40,25 +40,33 @@ class Document:
 
     def insert_line(self, text: str, line: int = None, column: int = None) -> None:
         if line is not None and column is not None:
-            if 1 <= line <= self.number_of_lines:
-                if 1 <= column < len(self.current_content[line - 1]):
-                    self.back_up()
-                    line_content = self.current_content[line - 1]
-                    self.current_content[line - 1] = ''.join((line_content[:column], text, line_content[column:]))
-                else:
-                    sys.exit("Error! You can't insert the line at this position. "
-                             f'The number of characters in the target line: {len(self.current_content[line - 1])}.')
-            else:
+            if line < 1:
+                sys.exit("Error! You can't insert the line at this position. "
+                         'The number of the target line must be a natural number.')
+            elif line > self.number_of_lines:
                 sys.exit("Error! You can't insert the line at this position. "
                          f'The number of lines in the file: {self.number_of_lines}.')
+            elif column < 1:
+                sys.exit("Error! You can't insert the line at this position. "
+                         'The number of the target column must be a natural number.')
+            elif column > len(self.current_content[line - 1]):
+                sys.exit("Error! You can't insert the line at this position. "
+                         f'The number of characters in the target line: {len(self.current_content[line - 1])}.')
+            else:
+                self.back_up()
+                line_content = self.current_content[line - 1]
+                self.current_content[line - 1] = ''.join((line_content[:column], text, line_content[column:]))
         elif line is not None:
-            if 1 <= line <= self.number_of_lines:
+            if line < 1:
+                sys.exit("Error! You can't insert the line at this position. "
+                         'The number of the target line must be a natural number.')
+            elif line > self.number_of_lines:
+                sys.exit("Error! You can't insert the line at this position. "
+                         f'The number of lines in the file: {self.number_of_lines}.')
+            else:
                 self.back_up()
                 self.current_content[line - 1] = self.current_content[line - 1].removesuffix('\n')
                 self.current_content[line - 1] += f'{text}\n'
-            else:
-                sys.exit("Error! You can't insert the line at this position. "
-                         f'The number of lines in the file: {self.number_of_lines}.')
         else:
             self.back_up()
             if not self.current_content[-1].endswith('\n'):
