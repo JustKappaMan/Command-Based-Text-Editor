@@ -74,15 +74,17 @@ class Document:
             self.current_content.append(text)
 
     def delete_line(self, line: int = None) -> None:
-        if line is not None:
-            if 1 <= line <= self.number_of_lines:
-                self.back_up()
-                del self.current_content[line - 1]
-            else:
-                sys.exit(f"Error! You can't delete the line №{line}. "
-                         f'The number of lines in the file: {self.number_of_lines}.')
-        else:
+        if line is None:
             sys.exit('Error! You must specify the number of the line you want to delete.')
+        elif line < 1:
+            sys.exit(f"Error! You can't delete the line №{line}. "
+                     'The number of the target line must be a natural number.')
+        elif line > self.number_of_lines:
+            sys.exit(f"Error! You can't delete the line №{line}. "
+                     f'The number of lines in the file: {self.number_of_lines}.')
+        else:
+            self.back_up()
+            del self.current_content[line - 1]
 
     def swap_lines(self, line1: int, line2: int) -> None:
         if line1 < 1 or line1 > self.number_of_lines:
