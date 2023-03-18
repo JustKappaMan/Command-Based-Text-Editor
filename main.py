@@ -87,18 +87,24 @@ class Document:
             del self.current_content[line - 1]
 
     def swap_lines(self, line1: int, line2: int) -> None:
-        if line1 < 1 or line1 > self.number_of_lines:
+        if line1 < 1:
+            sys.exit(f"Error! You can't move the line №{line1}. "
+                     'The number of the target line must be a natural number.')
+        elif line1 > self.number_of_lines:
             sys.exit(f"Error! You can't move the line №{line1}. "
                      f'The number of lines in the file: {self.number_of_lines}.')
-        if line2 < 1 or line2 > self.number_of_lines:
+        elif line2 < 1:
+            sys.exit(f"Error! You can't move the line №{line1}. "
+                     'The number of the target line must be a natural number.')
+        elif line2 > self.number_of_lines:
             sys.exit(f"Error! You can't move the line №{line2}. "
                      f'The number of lines in the file: {self.number_of_lines}.')
-        if line1 == line2:
+        elif line1 == line2:
             sys.exit("Error! You can't swap the line with itself.")
-
-        self.back_up()
-        self.current_content[line1 - 1], self.current_content[line2 - 1] = \
-            self.current_content[line2 - 1], self.current_content[line1 - 1]
+        else:
+            self.back_up()
+            self.current_content[line1 - 1], self.current_content[line2 - 1] = \
+                self.current_content[line2 - 1], self.current_content[line1 - 1]
 
     def clear(self) -> None:
         self.back_up()
