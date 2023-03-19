@@ -2,6 +2,8 @@ import sys
 import copy
 import pathlib
 
+from exceptions import *
+
 
 class Document:
     def __init__(self) -> None:
@@ -34,34 +36,33 @@ class Document:
     def number_of_lines(self) -> int:
         return len(self.current_content)
 
-    def insert_line(self, line_number: int = None, column_number: int = None, text: str = None) -> None:
-        if text is None:
-            sys.exit('Error! You must specify the text of the line you want to insert.')
+    def insert_line(self, text: str, line_number: int = None, column_number: int = None) -> None:
         if line_number is not None and column_number is not None:
-            if line_number < 1:
-                sys.exit("Error! You can't insert the line at this position. "
-                         'The number of the target line must be a natural number.')
+            if line_number == 0:
+                raise ZeroLineNumber("Error! You can't insert the line at this position. "
+                                     'The number of the target line must be a natural number.')
             elif line_number > self.number_of_lines:
-                sys.exit("Error! You can't insert the line at this position. "
-                         f'The number of lines in the file: {self.number_of_lines}.')
-            elif column_number < 1:
-                sys.exit("Error! You can't insert the line at this position. "
-                         'The number of the target column must be a natural number.')
+                raise TooLargeLineNumber("Error! You can't insert the line at this position. "
+                                         f'The number of lines in the file: {self.number_of_lines}.')
+            elif column_number == 0:
+                raise ZeroColumnNumber("Error! You can't insert the line at this position. "
+                                       'The number of the target column must be a natural number.')
             elif column_number > len(self.current_content[line_number - 1]):
-                sys.exit("Error! You can't insert the line at this position. "
-                         f'The number of characters in the target line: {len(self.current_content[line_number - 1])}.')
+                raise TooLargeColumnNumber("Error! You can't insert the line at this position. "
+                                           'The number of characters in the target line: '
+                                           f'{len(self.current_content[line_number - 1])}.')
             else:
                 self.back_up()
                 line_content = self.current_content[line_number - 1]
                 self.current_content[line_number - 1] = ''.join(
                     (line_content[:column_number], text, line_content[column_number:]))
         elif line_number is not None:
-            if line_number < 1:
-                sys.exit("Error! You can't insert the line at this position. "
-                         'The number of the target line must be a natural number.')
+            if line_number == 0:
+                raise ZeroLineNumber("Error! You can't insert the line at this position. "
+                                     'The number of the target line must be a natural number.')
             elif line_number > self.number_of_lines:
-                sys.exit("Error! You can't insert the line at this position. "
-                         f'The number of lines in the file: {self.number_of_lines}.')
+                raise TooLargeLineNumber("Error! You can't insert the line at this position. "
+                                         f'The number of lines in the file: {self.number_of_lines}.')
             else:
                 self.back_up()
                 self.current_content[line_number - 1] = self.current_content[line_number - 1].removesuffix('\n')
@@ -72,34 +73,32 @@ class Document:
                 self.current_content[-1] += '\n'
             self.current_content.append(text)
 
-    def delete_line(self, line_number: int = None) -> None:
-        if line_number is None:
-            sys.exit('Error! You must specify the number of the line you want to delete.')
-        elif line_number < 1:
-            sys.exit(f"Error! You can't delete the line №{line_number}. "
-                     'The number of the target line must be a natural number.')
+    def delete_line(self, line_number: int) -> None:
+        if line_number == 0:
+            raise ZeroLineNumber(f"Error! You can't delete the line №{line_number}. "
+                                 'The number of the target line must be a natural number.')
         elif line_number > self.number_of_lines:
-            sys.exit(f"Error! You can't delete the line №{line_number}. "
-                     f'The number of lines in the file: {self.number_of_lines}.')
+            raise TooLargeLineNumber(f"Error! You can't delete the line №{line_number}. "
+                                     f'The number of lines in the file: {self.number_of_lines}.')
         else:
             self.back_up()
             del self.current_content[line_number - 1]
 
     def swap_lines(self, line1_number: int, line2_number: int) -> None:
-        if line1_number < 1:
-            sys.exit(f"Error! You can't move the line №{line1_number}. "
-                     'The number of the target line must be a natural number.')
+        if line1_number == 0:
+            raise ZeroLineNumber(f"Error! You can't move the line №{line1_number}. "
+                                 'The number of the target line must be a natural number.')
         elif line1_number > self.number_of_lines:
-            sys.exit(f"Error! You can't move the line №{line1_number}. "
-                     f'The number of lines in the file: {self.number_of_lines}.')
-        elif line2_number < 1:
-            sys.exit(f"Error! You can't move the line №{line1_number}. "
-                     'The number of the target line must be a natural number.')
+            raise TooLargeLineNumber(f"Error! You can't move the line №{line1_number}. "
+                                     f'The number of lines in the file: {self.number_of_lines}.')
+        elif line2_number == 0:
+            raise ZeroLineNumber(f"Error! You can't move the line №{line2_number}. "
+                                 'The number of the target line must be a natural number.')
         elif line2_number > self.number_of_lines:
-            sys.exit(f"Error! You can't move the line №{line2_number}. "
-                     f'The number of lines in the file: {self.number_of_lines}.')
+            raise TooLargeLineNumber(f"Error! You can't move the line №{line2_number}. "
+                                     f'The number of lines in the file: {self.number_of_lines}.')
         elif line1_number == line2_number:
-            sys.exit("Error! You can't swap the line with itself.")
+            raise LineSwappedWithItself("Error! You can't swap the line with itself.")
         else:
             self.back_up()
 
