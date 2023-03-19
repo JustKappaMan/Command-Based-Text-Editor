@@ -51,6 +51,12 @@ class InputHandler:
             elif self.user_input == 'save':
                 self.document.save()
             elif self.user_input == 'close':
-                self.document.close()
+                try:
+                    self.document.close()
+                except UnsavedChangesExist as e:
+                    if input(f'{e}').lower() == 'y':
+                        sys.exit(0)
+                    else:
+                        continue
             else:
                 print('Error! Unknown command.')

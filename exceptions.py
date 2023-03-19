@@ -28,3 +28,7 @@ class TooLargeColumnNumber(Exception):
 
 class LineSwappedWithItself(Exception):
     pass
+
+
+class UnsavedChangesExist(Exception):
+    pass
