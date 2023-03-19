@@ -1,3 +1,15 @@
+class WrongNumberOfCommandLineArgs(Exception):
+    pass
+
+
+class PathDoesNotExist(Exception):
+    pass
+
+
+class PathIsNotFilepath(Exception):
+    pass
+
+
 class ZeroLineNumber(Exception):
     pass
 

@@ -1,4 +1,5 @@
 import re
+import sys
 
 from document import Document
 from exceptions import *
@@ -6,7 +7,11 @@ from exceptions import *
 
 class InputHandler:
     def __init__(self) -> None:
-        self.document = Document()
+        try:
+            self.document = Document()
+        except (WrongNumberOfCommandLineArgs, PathDoesNotExist, PathIsNotFilepath) as e:
+            sys.exit(f'{e}')
+
         self.user_input = None
 
     def start(self):

@@ -14,14 +14,14 @@ class Document:
     @staticmethod
     def extract_path() -> pathlib.Path:
         if len(sys.argv) != 2:
-            sys.exit('Wrong number of CL arguments! Check README for details.')
+            raise WrongNumberOfCommandLineArgs('Error! Wrong number of CL arguments.')
         else:
             path = pathlib.Path(sys.argv[1])
 
         if not path.exists():
-            sys.exit('You must pass an existing path as a CL argument!')
+            raise PathDoesNotExist('Error! You must pass an existing path as a CL argument.')
         elif not path.is_file():
-            sys.exit('You must pass a filepath as a CL argument!')
+            raise PathIsNotFilepath('Error! You must pass a filepath as a CL argument.')
         else:
             return path
 
