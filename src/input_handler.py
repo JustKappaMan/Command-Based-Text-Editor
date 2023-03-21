@@ -58,5 +58,7 @@ class InputHandler:
                         sys.exit(0)
                     else:
                         continue
+                else:
+                    sys.exit(0)
             else:
                 print('Error! Unknown command.')
