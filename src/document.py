@@ -55,7 +55,7 @@ class Document:
                 self.back_up()
                 line_content = self.current_content[line_number - 1]
                 self.current_content[line_number - 1] = ''.join(
-                    (line_content[:column_number], text, line_content[column_number:]))
+                    (line_content[:column_number - 1], text, line_content[column_number - 1:]))
         elif line_number is not None:
             if line_number == 0:
                 raise ZeroLineNumber("Error! You can't insert the line at this position. "
