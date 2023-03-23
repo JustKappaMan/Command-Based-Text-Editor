@@ -5,9 +5,6 @@ class WrongNumberOfCommandLineArgs(Exception):
     Attributes:
         expected_args_count (int): The expected number of CL args.
         actual_args_count (int): The actual number of CL args passed to the script.
-
-    Example:
-        >>> raise WrongNumberOfCommandLineArgs(2, 1)
     """
 
     def __init__(self, expected_args_count, actual_args_count):
@@ -51,7 +48,7 @@ class ZeroLineNumber(Exception):
     """
 
     def __init__(self):
-        self.message = "Error! You can't access the line №0." \
+        self.message = "Error! You can't access the line №0. " \
                        'The number of the line must be greater than 0.'
         super().__init__(self.message)
 
@@ -66,7 +63,7 @@ class TooLargeLineNumber(Exception):
 
     def __init__(self, line_number):
         self.line_number = line_number
-        self.message = f"Error! You can't access the line №{self.line_number}." \
+        self.message = f"Error! You can't access the line №{self.line_number}. " \
                        'The number of the line exceeds total number of lines.'
         super().__init__(self.message)
 
@@ -77,7 +74,7 @@ class ZeroColumnNumber(Exception):
     """
 
     def __init__(self):
-        self.message = "Error! You can't access the column №0." \
+        self.message = "Error! You can't access the column №0. " \
                        'The number of the column must be greater than 0.'
         super().__init__(self.message)
 
@@ -92,7 +89,7 @@ class TooLargeColumnNumber(Exception):
 
     def __init__(self, column_number):
         self.column_number = column_number
-        self.message = f"Error! You can't access the column №{self.column_number}." \
+        self.message = f"Error! You can't access the column №{self.column_number}. " \
                        'The number of the column exceeds total number of columns in the line.'
         super().__init__(self.message)
 
