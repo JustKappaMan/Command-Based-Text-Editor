@@ -41,14 +41,11 @@ class Document:
             if line_number == 0:
                 raise ZeroLineNumber
             elif line_number > self.number_of_lines:
-                raise TooLargeLineNumber("Error! You can't insert the line at this position. "
-                                         f'The number of lines in the file: {self.number_of_lines}.')
+                raise TooLargeLineNumber(line_number)
             elif column_number == 0:
                 raise ZeroColumnNumber
             elif column_number > len(self.current_content[line_number - 1]):
-                raise TooLargeColumnNumber("Error! You can't insert the line at this position. "
-                                           'The number of characters in the target line: '
-                                           f'{len(self.current_content[line_number - 1])}.')
+                raise TooLargeColumnNumber(column_number)
             else:
                 self.back_up()
                 line_content = self.current_content[line_number - 1]
@@ -58,8 +55,7 @@ class Document:
             if line_number == 0:
                 raise ZeroLineNumber
             elif line_number > self.number_of_lines:
-                raise TooLargeLineNumber("Error! You can't insert the line at this position. "
-                                         f'The number of lines in the file: {self.number_of_lines}.')
+                raise TooLargeLineNumber(line_number)
             else:
                 self.back_up()
                 self.current_content[line_number - 1] = self.current_content[line_number - 1].removesuffix('\n')
@@ -74,8 +70,7 @@ class Document:
         if line_number == 0:
             raise ZeroLineNumber
         elif line_number > self.number_of_lines:
-            raise TooLargeLineNumber(f"Error! You can't delete the line №{line_number}. "
-                                     f'The number of lines in the file: {self.number_of_lines}.')
+            raise TooLargeLineNumber(line_number)
         else:
             self.back_up()
             del self.current_content[line_number - 1]
@@ -84,13 +79,11 @@ class Document:
         if line1_number == 0:
             raise ZeroLineNumber
         elif line1_number > self.number_of_lines:
-            raise TooLargeLineNumber(f"Error! You can't move the line №{line1_number}. "
-                                     f'The number of lines in the file: {self.number_of_lines}.')
+            raise TooLargeLineNumber(line1_number)
         elif line2_number == 0:
             raise ZeroLineNumber
         elif line2_number > self.number_of_lines:
-            raise TooLargeLineNumber(f"Error! You can't move the line №{line2_number}. "
-                                     f'The number of lines in the file: {self.number_of_lines}.')
+            raise TooLargeLineNumber(line2_number)
         elif line1_number == line2_number:
             raise LineSwappedWithItself("Error! You can't swap the line with itself.")
         else:

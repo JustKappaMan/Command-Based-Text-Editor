@@ -57,7 +57,18 @@ class ZeroLineNumber(Exception):
 
 
 class TooLargeLineNumber(Exception):
-    pass
+    """
+    Exception raised when a line number exceeds total number of lines.
+
+    Attributes:
+        line_number (int): The line number that exceeds total number of lines.
+    """
+
+    def __init__(self, line_number):
+        self.line_number = line_number
+        self.message = f"Error! You can't access the line №{self.line_number}." \
+                       'The number of the line exceeds total number of lines.'
+        super().__init__(self.message)
 
 
 class ZeroColumnNumber(Exception):
@@ -72,7 +83,18 @@ class ZeroColumnNumber(Exception):
 
 
 class TooLargeColumnNumber(Exception):
-    pass
+    """
+    Exception raised when a column number exceeds total number of columns in the line.
+
+    Attributes:
+        column_number (int): The column number that exceeds total number of columns in the line.
+    """
+
+    def __init__(self, column_number):
+        self.column_number = column_number
+        self.message = f"Error! You can't access the column №{self.column_number}." \
+                       'The number of the column exceeds total number of columns in the line.'
+        super().__init__(self.message)
 
 
 class LineSwappedWithItself(Exception):
