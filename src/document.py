@@ -14,7 +14,7 @@ class Document:
     @staticmethod
     def extract_path() -> pathlib.Path:
         if len(sys.argv) != 2:
-            raise WrongNumberOfCommandLineArgs('Error! Wrong number of CL arguments.')
+            raise WrongNumberOfCommandLineArgs(2, len(sys.argv))
         else:
             path = pathlib.Path(sys.argv[1])
 
