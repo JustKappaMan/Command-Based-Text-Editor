@@ -19,9 +19,9 @@ class Document:
             path = pathlib.Path(sys.argv[1])
 
         if not path.exists():
-            raise PathDoesNotExist('Error! You must pass an existing path as a CL argument.')
+            raise PathDoesNotExist(path)
         elif not path.is_file():
-            raise PathIsNotFilepath('Error! You must pass a filepath as a CL argument.')
+            raise PathIsNotFilepath(path)
         else:
             return path
 

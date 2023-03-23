@@ -18,11 +18,31 @@ class WrongNumberOfCommandLineArgs(Exception):
 
 
 class PathDoesNotExist(Exception):
-    pass
+    """
+    Exception raised when a path doesn't exist.
+
+    Attributes:
+        path (pathlib.Path): The path that couldn't be found.
+    """
+
+    def __init__(self, path):
+        self.path = path
+        self.message = f"Error! Following path doesn't exist: {self.path}"
+        super().__init__(self.message)
 
 
 class PathIsNotFilepath(Exception):
-    pass
+    """
+    Exception raised when a path isn't a filepath.
+
+    Attributes:
+        path (pathlib.Path): The path that isn't a filepath.
+    """
+
+    def __init__(self, path):
+        self.path = path
+        self.message = f"Error! Following path isn't a filepath: {self.path}"
+        super().__init__(self.message)
 
 
 class ZeroLineNumber(Exception):
