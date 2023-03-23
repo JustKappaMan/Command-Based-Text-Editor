@@ -46,7 +46,14 @@ class PathIsNotFilepath(Exception):
 
 
 class ZeroLineNumber(Exception):
-    pass
+    """
+    Exception raised when a line number is equal to zero.
+    """
+
+    def __init__(self):
+        self.message = "Error! You can't access the line №0." \
+                       'The number of the line must be greater than 0.'
+        super().__init__(self.message)
 
 
 class TooLargeLineNumber(Exception):
@@ -54,7 +61,14 @@ class TooLargeLineNumber(Exception):
 
 
 class ZeroColumnNumber(Exception):
-    pass
+    """
+    Exception raised when a column number is equal to zero.
+    """
+
+    def __init__(self):
+        self.message = "Error! You can't access the column №0." \
+                       'The number of the column must be greater than 0.'
+        super().__init__(self.message)
 
 
 class TooLargeColumnNumber(Exception):
