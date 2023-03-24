@@ -4,10 +4,6 @@ import pathlib
 class WrongNumberOfCommandLineArgs(Exception):
     """
     Exception raised when an incorrect number of CL args is passed to a script.
-
-    Attributes:
-        expected_args_count (int): The expected number of CL args.
-        actual_args_count (int): The actual number of CL args passed to the script.
     """
 
     def __init__(self, expected_args_count: int, actual_args_count: int) -> None:
@@ -20,9 +16,6 @@ class WrongNumberOfCommandLineArgs(Exception):
 class PathDoesNotExist(Exception):
     """
     Exception raised when a path doesn't exist.
-
-    Attributes:
-        path (pathlib.Path): The path that couldn't be found.
     """
 
     def __init__(self, path: pathlib.Path) -> None:
@@ -34,9 +27,6 @@ class PathDoesNotExist(Exception):
 class PathIsNotFilepath(Exception):
     """
     Exception raised when a path isn't a filepath.
-
-    Attributes:
-        path (pathlib.Path): The path that isn't a filepath.
     """
 
     def __init__(self, path: pathlib.Path) -> None:
@@ -58,9 +48,6 @@ class ZeroLineNumber(Exception):
 class TooLargeLineNumber(Exception):
     """
     Exception raised when a line number exceeds total number of lines.
-
-    Attributes:
-        line_number (int): The line number that exceeds total number of lines.
     """
 
     def __init__(self, line_number: int) -> None:
@@ -84,9 +71,6 @@ class ZeroColumnNumber(Exception):
 class TooLargeColumnNumber(Exception):
     """
     Exception raised when a column number exceeds total number of columns in the line.
-
-    Attributes:
-        column_number (int): The column number that exceeds total number of columns in the line.
     """
 
     def __init__(self, column_number: int) -> None:
@@ -108,7 +92,7 @@ class LineSwappedWithItself(Exception):
 
 class UnsavedChangesExist(Exception):
     """
-     Exception raised when attempting to close the editor with unsaved changes.
+    Exception raised when attempting to close the editor with unsaved changes.
     """
 
     def __init__(self) -> None:
