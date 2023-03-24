@@ -85,7 +85,7 @@ class Document:
         elif line2_number > self.number_of_lines:
             raise TooLargeLineNumber(line2_number)
         elif line1_number == line2_number:
-            raise LineSwappedWithItself("Error! You can't swap the line with itself.")
+            raise LineSwappedWithItself
         else:
             self.back_up()
 

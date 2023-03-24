@@ -95,7 +95,13 @@ class TooLargeColumnNumber(Exception):
 
 
 class LineSwappedWithItself(Exception):
-    pass
+    """
+    Exception raised when attempting to swap a line with itself.
+    """
+
+    def __init__(self):
+        self.message = "Error! You can't swap the line with itself."
+        super().__init__(self.message)
 
 
 class UnsavedChangesExist(Exception):
