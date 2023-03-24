@@ -111,6 +111,4 @@ class Document:
     def close(self) -> None:
         with self.path.open('r') as file:
             if self.current_content != file.readlines():
-                raise UnsavedChangesExist('All unsaved changes will be lost. '
-                                          'Are you sure you want to close the editor? '
-                                          '(Y/n): ')
+                raise UnsavedChangesExist

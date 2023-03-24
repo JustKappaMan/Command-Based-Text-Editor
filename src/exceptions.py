@@ -105,4 +105,10 @@ class LineSwappedWithItself(Exception):
 
 
 class UnsavedChangesExist(Exception):
-    pass
+    """
+     Exception raised when attempting to close the editor with unsaved changes.
+    """
+
+    def __init__(self):
+        self.message = 'All unsaved changes will be lost. Are you sure you want to close the editor? (Y/n): '
+        super().__init__(self.message)
