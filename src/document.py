@@ -1,6 +1,5 @@
 import sys
 import copy
-import pathlib
 
 from exceptions import *
 
