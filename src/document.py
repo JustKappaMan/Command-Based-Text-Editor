@@ -1,5 +1,4 @@
 import sys
-import copy
 
 from exceptions import *
 
@@ -8,7 +7,7 @@ class Document:
     def __init__(self) -> None:
         self.path: pathlib.Path = Document.extract_path()
         self.current_content: list[str] = self.get_lines()
-        self.previous_content: list[str] = copy.deepcopy(self.current_content)
+        self.previous_content: list[str] = self.current_content.copy()
 
     @staticmethod
     def extract_path() -> pathlib.Path:
@@ -29,7 +28,7 @@ class Document:
             return file.readlines()
 
     def back_up(self) -> None:
-        self.previous_content = copy.deepcopy(self.current_content)
+        self.previous_content = self.current_content.copy()
 
     @property
     def number_of_lines(self) -> int:
@@ -95,7 +94,7 @@ class Document:
                 self.current_content[line2_number - 1], self.current_content[line1_number - 1]
 
     def undo(self) -> None:
-        self.current_content = copy.deepcopy(self.previous_content)
+        self.current_content = self.previous_content.copy()
 
     def clear(self) -> None:
         self.back_up()
