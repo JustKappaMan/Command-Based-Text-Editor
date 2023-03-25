@@ -75,12 +75,10 @@ class Document:
             del self.current_content[line_number - 1]
 
     def swap_lines(self, line1_number: int, line2_number: int) -> None:
-        if line1_number == 0:
+        if line1_number == 0 or line2_number == 0:
             raise ZeroLineNumber
         elif line1_number > self.number_of_lines:
             raise TooLargeLineNumber(line1_number)
-        elif line2_number == 0:
-            raise ZeroLineNumber
         elif line2_number > self.number_of_lines:
             raise TooLargeLineNumber(line2_number)
         elif line1_number == line2_number:
@@ -104,7 +102,7 @@ class Document:
         self.current_content.clear()
 
     def save(self) -> None:
-        with self.path.open('w+') as file:
+        with self.path.open('w') as file:
             file.writelines(self.current_content)
 
     def close(self) -> None:

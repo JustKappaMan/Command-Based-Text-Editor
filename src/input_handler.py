@@ -8,7 +8,7 @@ from exceptions import *
 class InputHandler:
     def __init__(self) -> None:
         try:
-            self.document = Document()
+            self.document: Document = Document()
         except (WrongNumberOfCommandLineArgs, PathDoesNotExist, PathIsNotFilepath) as e:
             sys.exit(f'{e}')
 
