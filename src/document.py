@@ -25,7 +25,7 @@ class Document:
             return path
 
     def get_lines(self) -> list[str]:
-        with self.path.open('r') as file:
+        with self.path.open('r', encoding='utf-8') as file:
             return file.readlines()
 
     def back_up(self) -> None:
@@ -102,10 +102,10 @@ class Document:
         self.current_content.clear()
 
     def save(self) -> None:
-        with self.path.open('w') as file:
+        with self.path.open('w', encoding='utf-8') as file:
             file.writelines(self.current_content)
 
     def close(self) -> None:
-        with self.path.open('r') as file:
+        with self.path.open('r', encoding='utf-8') as file:
             if self.current_content != file.readlines():
                 raise UnsavedChangesExist
