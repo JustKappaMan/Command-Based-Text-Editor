@@ -1,7 +1,7 @@
 # Command Based Text Editor
 Edit text files with CLI using a set of commands.
 ## Usage
-* Open the file you want to edit: `python` `main.` `file.txt`
+* Open the file you want to edit: `python` `main.py` `file.txt`
 * Use the following set of commands:
   * `insert` `"text"` — appends the text to the end of the file
   * `insert` `line_number` `"text"` — appends the text to the end of the line
