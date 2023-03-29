@@ -34,6 +34,10 @@ class Document:
     def number_of_lines(self) -> int:
         return len(self.current_content)
 
+    @property
+    def is_empty(self) -> bool:
+        return self.current_content == []
+
     def insert_line(self, text: str, line_number: int = None, column_number: int = None) -> None:
         if line_number is not None and column_number is not None:
             if line_number == 0:
@@ -60,7 +64,7 @@ class Document:
                 self.current_content[line_number - 1] += f'{text}\n'
         else:
             self.back_up()
-            if not self.current_content[-1].endswith('\n'):
+            if not self.is_empty and not self.current_content[-1].endswith('\n'):
                 self.current_content[-1] += '\n'
             self.current_content.append(text)
 
