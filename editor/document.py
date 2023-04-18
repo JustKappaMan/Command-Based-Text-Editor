@@ -1,6 +1,6 @@
 import sys
 
-from editor.exceptions import *
+from .exceptions import *
 
 
 class Document:

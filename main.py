@@ -1,8 +1,8 @@
-from editor.input_handler import InputHandler
+from editor import Editor
 
 
 def main():
-    app = InputHandler()
+    app = Editor()
     app.start()
 
 

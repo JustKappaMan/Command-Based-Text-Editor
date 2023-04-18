@@ -1,11 +1,11 @@
 import re
 import sys
 
-from editor.document import Document
-from editor.exceptions import *
+from .document import Document
+from .exceptions import *
 
 
-class InputHandler:
+class Editor:
     def __init__(self) -> None:
         try:
             self.document: Document = Document()
