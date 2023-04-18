@@ -10,7 +10,7 @@ class InputHandler:
         try:
             self.document: Document = Document()
         except (WrongNumberOfCommandLineArgs, PathDoesNotExist, PathIsNotFilepath) as e:
-            sys.exit(f'{e}')
+            sys.exit(e)
 
         self.user_input = None
 
