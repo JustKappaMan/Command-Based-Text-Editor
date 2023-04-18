@@ -1,8 +1,8 @@
 import re
 import sys
 
-from document import Document
-from exceptions import *
+from editor.document import Document
+from editor.exceptions import *
 
 
 class InputHandler:

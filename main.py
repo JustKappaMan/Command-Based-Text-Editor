@@ -1,4 +1,4 @@
-from input_handler import InputHandler
+from editor.input_handler import InputHandler
 
 
 def main():
