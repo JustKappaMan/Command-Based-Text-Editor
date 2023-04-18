@@ -1,5 +1,6 @@
 # Command Based Text Editor
 ![MIT License](https://img.shields.io/github/license/JustKappaMan/Command-Based-Text-Editor)
+
 Edit text files with CLI using a set of commands.
 ## Usage
 * Open the file you want to edit: `python` `main.py` `file.txt`
