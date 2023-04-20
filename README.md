@@ -1,5 +1,6 @@
 # Command Based Text Editor
 ![MIT License](https://img.shields.io/github/license/JustKappaMan/Command-Based-Text-Editor)
+![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)
 
 Edit text files with CLI using a set of commands.
 ## Usage
