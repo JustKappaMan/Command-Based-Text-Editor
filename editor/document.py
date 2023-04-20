@@ -38,7 +38,7 @@ class Document:
     def is_empty(self) -> bool:
         return self.current_content == []
 
-    def insert_line(self, text: str, line_number: int = None, column_number: int = None) -> None:
+    def insert_line(self, text: str, line_number: int | None = None, column_number: int | None = None) -> None:
         if line_number is not None and column_number is not None:
             if line_number == 0:
                 raise ZeroLineNumber

@@ -10,7 +10,7 @@ class Editor:
         try:
             self.document: Document = Document()
         except (WrongNumberOfCommandLineArgs, PathDoesNotExist, PathIsNotFilepath) as e:
-            sys.exit(e)
+            sys.exit(f'{e}')
 
         self.user_input = None
 
