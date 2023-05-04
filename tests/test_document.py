@@ -3,6 +3,7 @@ from unittest import TestCase, main
 from unittest.mock import patch
 
 from editor.document import Document
+from editor.exceptions import *
 
 
 class TestDocument(TestCase):
@@ -35,6 +36,54 @@ class TestDocument(TestCase):
         with patch('sys.argv', ['main.py', Path('files', 'empty_file.txt')]):
             document: Document = Document()
             self.assertTrue(document.is_empty)
+
+    def test_wrong_number_of_command_line_args(self):
+        with patch('sys.argv', ['main.py']):
+            self.assertRaises(WrongNumberOfCommandLineArgs, Document)
+
+    def test_path_does_not_exist(self):
+        with patch('sys.argv', ['main.py', Path('files', 'not_existing_file.txt')]):
+            self.assertRaises(PathDoesNotExist, Document)
+
+    def test_path_is_not_filepath(self):
+        with patch('sys.argv', ['main.py', Path('files')]):
+            self.assertRaises(PathIsNotFilepath, Document)
+
+    def test_zero_line_number(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(ZeroLineNumber):
+                document.insert_line('new line', line_number=0)
+
+    def test_zero_line_number_and_non_zero_column_number(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(ZeroLineNumber):
+                document.insert_line('new line', line_number=0, column_number=1)
+
+    def test_zero_column_number(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(ZeroColumnNumber):
+                document.insert_line('new line', line_number=1, column_number=0)
+
+    def test_too_large_line_number(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(TooLargeLineNumber):
+                document.insert_line('new line', line_number=42)
+
+    def test_too_large_line_number_and_ok_column_number(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(TooLargeLineNumber):
+                document.insert_line('new line', line_number=42, column_number=1)
+
+    def test_too_large_column_number(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(TooLargeColumnNumber):
+                document.insert_line('new line', line_number=1, column_number=42)
 
 
 if __name__ == '__main__':
