@@ -53,48 +53,48 @@ class TestDocument(TestCase):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
             with self.assertRaises(ZeroLineNumber):
-                document.insert_line('new line', line_number=0)
+                document.insert_line('new line', 0)
 
     def test_zero_line_number_and_non_zero_column_number_on_insert(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
             with self.assertRaises(ZeroLineNumber):
-                document.insert_line('new line', line_number=0, column_number=1)
+                document.insert_line('new line', 0, 1)
 
     def test_zero_column_number_on_insert(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
             with self.assertRaises(ZeroColumnNumber):
-                document.insert_line('new line', line_number=1, column_number=0)
+                document.insert_line('new line', 1, 0)
 
     def test_too_large_line_number_on_insert(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
             with self.assertRaises(TooLargeLineNumber):
-                document.insert_line('new line', line_number=42)
+                document.insert_line('new line', 42)
 
     def test_too_large_line_number_and_ok_column_number_on_insert(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
             with self.assertRaises(TooLargeLineNumber):
-                document.insert_line('new line', line_number=42, column_number=1)
+                document.insert_line('new line', 42, 1)
 
     def test_too_large_column_number_on_insert(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
             with self.assertRaises(TooLargeColumnNumber):
-                document.insert_line('new line', line_number=1, column_number=42)
+                document.insert_line('new line', 1, 42)
 
     def test_insert_line_specifying_line_number(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
-            document.insert_line(' is now longer', line_number=1)
+            document.insert_line(' is now longer', 1)
             self.assertEqual(document.current_content, ['Line #1 is now longer\n', 'Line #2\n', 'Line #3'])
 
     def test_insert_line_specifying_line_number_and_column_number(self):
         with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
             document: Document = Document()
-            document.insert_line('This is the ', line_number=1, column_number=1)
+            document.insert_line('This is the ', 1, 1)
             self.assertEqual(document.current_content, ['This is the Line #1\n', 'Line #2\n', 'Line #3'])
 
     def test_insert_line_not_specifying_anything(self):
@@ -120,6 +120,54 @@ class TestDocument(TestCase):
             document: Document = Document()
             document.delete_line(3)
             self.assertEqual(document.current_content, ['Line #1\n', 'Line #2\n'])
+
+    def test_first_zero_line_number_on_swap(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(ZeroLineNumber):
+                document.swap_lines(0, 1)
+
+    def test_second_zero_line_number_on_swap(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(ZeroLineNumber):
+                document.swap_lines(1, 0)
+
+    def test_too_large_line_number_on_swap_one(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(TooLargeLineNumber):
+                document.swap_lines(42, 1)
+
+    def test_too_large_line_number_on_swap_two(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(TooLargeLineNumber):
+                document.swap_lines(1, 42)
+
+    def test_line_swapped_with_itself(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            with self.assertRaises(LineSwappedWithItself):
+                document.swap_lines(1, 1)
+
+    def test_swap_lines(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            document.swap_lines(1, 2)
+            self.assertEqual(document.current_content, ['Line #2\n', 'Line #1\n', 'Line #3'])
+
+    def test_swap_line_without_newline_at_the_end_and_normal_line(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            document.swap_lines(3, 1)
+            self.assertEqual(document.current_content, ['Line #3\n', 'Line #2\n', 'Line #1\n'])
+
+    def test_swap__normal_line_and_line_without_newline_at_the_end(self):
+        with patch('sys.argv', ['main.py', Path('files', 'file_with_3_lines.txt')]):
+            document: Document = Document()
+            document.swap_lines(1, 3)
+            self.assertEqual(document.current_content, ['Line #3\n', 'Line #2\n', 'Line #1\n'])
 
 
 if __name__ == '__main__':
