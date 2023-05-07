@@ -1,10 +1,11 @@
 import sys
+import pathlib
 
 from .exceptions import *
 
 
 class Document:
-    def __init__(self) -> None:
+    def __init__(self):
         self.path: pathlib.Path = Document.extract_path()
         self.current_content: list[str] = self.get_lines()
         self.previous_content: list[str] = self.current_content.copy()
@@ -18,7 +19,7 @@ class Document:
 
         if not path.exists():
             raise PathDoesNotExist(path)
-        elif not path.is_file():
+        if not path.is_file():
             raise PathIsNotFilepath(path)
         else:
             return path

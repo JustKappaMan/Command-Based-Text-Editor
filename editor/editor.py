@@ -6,9 +6,9 @@ from .exceptions import *
 
 
 class Editor:
-    def __init__(self) -> None:
+    def __init__(self):
         try:
-            self.document: Document = Document()
+            self.document = Document()
         except (WrongNumberOfCommandLineArgs, PathDoesNotExist, PathIsNotFilepath) as e:
             sys.exit(f'{e}')
 
