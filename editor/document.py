@@ -40,7 +40,10 @@ class Document:
 
     def insert_line(self, text: str, line_number: int | None = None, column_number: int | None = None) -> None:
         if line_number is not None and column_number is not None:
-            if line_number == 0:
+            if self.is_empty and line_number == 1 and column_number == 1:
+                self.back_up()
+                self.current_content.append(f'{text}\n')
+            elif line_number == 0:
                 raise ZeroLineNumber
             elif line_number > self.number_of_lines:
                 raise TooLargeLineNumber(line_number)
@@ -54,7 +57,10 @@ class Document:
                 self.current_content[line_number - 1] = ''.join(
                     (line_content[:column_number - 1], text, line_content[column_number - 1:]))
         elif line_number is not None:
-            if line_number == 0:
+            if self.is_empty and line_number == 1:
+                self.back_up()
+                self.current_content.append(f'{text}\n')
+            elif line_number == 0:
                 raise ZeroLineNumber
             elif line_number > self.number_of_lines:
                 raise TooLargeLineNumber(line_number)

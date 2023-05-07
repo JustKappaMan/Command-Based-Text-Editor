@@ -216,6 +216,18 @@ class TestDocument(TestCase):
             with self.assertRaises(UnsavedChangesExist):
                 document.close()
 
+    def test_insert_to_the_first_line_in_empty_file(self):
+        with patch('sys.argv', ['main.py', self.empty_file]):
+            document: Document = Document()
+            document.insert_line('Line #1', 1)
+            self.assertEqual(document.current_content, ['Line #1\n'])
+
+    def test_insert_to_the_first_position_in_empty_file(self):
+        with patch('sys.argv', ['main.py', self.empty_file]):
+            document: Document = Document()
+            document.insert_line('Line #1', 1, 1)
+            self.assertEqual(document.current_content, ['Line #1\n'])
+
 
 if __name__ == '__main__':
     main()
