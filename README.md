@@ -18,3 +18,6 @@ Edit text files with CLI using a set of commands.
   * `close` — closes the editor
 ## License
 This project is licensed under the MIT License.
+## Credits
+Big thanks to:
+* [JetBrains](https://www.jetbrains.com/community/opensource) for Open Source development license
