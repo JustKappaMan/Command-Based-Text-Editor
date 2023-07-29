@@ -25,7 +25,7 @@ class Document:
             return path
 
     def get_lines(self) -> list[str]:
-        with self.path.open('r', encoding='utf-8') as file:
+        with self.path.open("r", encoding="utf-8") as file:
             return file.readlines()
 
     def back_up(self) -> None:
@@ -43,7 +43,7 @@ class Document:
         if line_number is not None and column_number is not None:
             if self.is_empty and line_number == 1 and column_number == 1:
                 self.back_up()
-                self.current_content.append(f'{text}\n')
+                self.current_content.append(f"{text}\n")
             elif line_number == 0:
                 raise ZeroLineNumber
             elif line_number > self.number_of_lines:
@@ -55,24 +55,25 @@ class Document:
             else:
                 self.back_up()
                 line_content = self.current_content[line_number - 1]
-                self.current_content[line_number - 1] = ''.join(
-                    (line_content[:column_number - 1], text, line_content[column_number - 1:]))
+                self.current_content[line_number - 1] = "".join(
+                    (line_content[: column_number - 1], text, line_content[column_number - 1 :])
+                )
         elif line_number is not None:
             if self.is_empty and line_number == 1:
                 self.back_up()
-                self.current_content.append(f'{text}\n')
+                self.current_content.append(f"{text}\n")
             elif line_number == 0:
                 raise ZeroLineNumber
             elif line_number > self.number_of_lines:
                 raise TooLargeLineNumber(line_number)
             else:
                 self.back_up()
-                self.current_content[line_number - 1] = self.current_content[line_number - 1].removesuffix('\n')
-                self.current_content[line_number - 1] += f'{text}\n'
+                self.current_content[line_number - 1] = self.current_content[line_number - 1].removesuffix("\n")
+                self.current_content[line_number - 1] += f"{text}\n"
         else:
             self.back_up()
-            if not self.is_empty and not self.current_content[-1].endswith('\n'):
-                self.current_content[-1] += '\n'
+            if not self.is_empty and not self.current_content[-1].endswith("\n"):
+                self.current_content[-1] += "\n"
             self.current_content.append(text)
 
     def delete_line(self, line_number: int) -> None:
@@ -96,13 +97,15 @@ class Document:
         else:
             self.back_up()
 
-            if not self.current_content[line1_number - 1].endswith('\n'):
-                self.current_content[line1_number - 1] += '\n'
-            if not self.current_content[line2_number - 1].endswith('\n'):
-                self.current_content[line2_number - 1] += '\n'
+            if not self.current_content[line1_number - 1].endswith("\n"):
+                self.current_content[line1_number - 1] += "\n"
+            if not self.current_content[line2_number - 1].endswith("\n"):
+                self.current_content[line2_number - 1] += "\n"
 
-            self.current_content[line1_number - 1], self.current_content[line2_number - 1] = \
-                self.current_content[line2_number - 1], self.current_content[line1_number - 1]
+            self.current_content[line1_number - 1], self.current_content[line2_number - 1] = (
+                self.current_content[line2_number - 1],
+                self.current_content[line1_number - 1],
+            )
 
     def undo(self) -> None:
         self.current_content = self.previous_content.copy()
@@ -112,10 +115,10 @@ class Document:
         self.current_content.clear()
 
     def save(self) -> None:
-        with self.path.open('w', encoding='utf-8') as file:
+        with self.path.open("w", encoding="utf-8") as file:
             file.writelines(self.current_content)
 
     def close(self) -> None:
-        with self.path.open('r', encoding='utf-8') as file:
+        with self.path.open("r", encoding="utf-8") as file:
             if self.current_content != file.readlines():
                 raise UnsavedChangesExist

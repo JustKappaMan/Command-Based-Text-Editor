@@ -9,7 +9,7 @@ class WrongNumberOfCommandLineArgs(Exception):
     def __init__(self, expected_args_count: int, actual_args_count: int):
         self.expected_args_count = expected_args_count
         self.actual_args_count = actual_args_count
-        self.message = f'Error! Expected number of CL args: {expected_args_count}, but got {actual_args_count}.'
+        self.message = f"Error! Expected number of CL args: {expected_args_count}, but got {actual_args_count}."
         super().__init__(self.message)
 
 
@@ -52,8 +52,10 @@ class TooLargeLineNumber(Exception):
 
     def __init__(self, line_number: int):
         self.line_number = line_number
-        self.message = f"Error! You can't access the line №{self.line_number}. " \
-                       'The number of the line exceeds total number of lines.'
+        self.message = (
+            f"Error! You can't access the line №{self.line_number}. "
+            "The number of the line exceeds total number of lines."
+        )
         super().__init__(self.message)
 
 
@@ -63,8 +65,7 @@ class ZeroColumnNumber(Exception):
     """
 
     def __init__(self):
-        self.message = "Error! You can't access the column №0. " \
-                       'The number of the column must be greater than 0.'
+        self.message = "Error! You can't access the column №0. " "The number of the column must be greater than 0."
         super().__init__(self.message)
 
 
@@ -75,8 +76,10 @@ class TooLargeColumnNumber(Exception):
 
     def __init__(self, column_number: int):
         self.column_number = column_number
-        self.message = f"Error! You can't access the column №{self.column_number}. " \
-                       'The number of the column exceeds total number of columns in the line.'
+        self.message = (
+            f"Error! You can't access the column №{self.column_number}. "
+            "The number of the column exceeds total number of columns in the line."
+        )
         super().__init__(self.message)
 
 
@@ -96,5 +99,5 @@ class UnsavedChangesExist(Exception):
     """
 
     def __init__(self):
-        self.message = 'All unsaved changes will be lost. Are you sure you want to close the editor? (Y/n): '
+        self.message = "All unsaved changes will be lost. Are you sure you want to close the editor? (Y/n): "
         super().__init__(self.message)
