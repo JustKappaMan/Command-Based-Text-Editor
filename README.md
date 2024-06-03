@@ -18,8 +18,5 @@ Edit text files with CLI using a set of commands.
   * `save` — save the file
   * `close` — close the editor
 
-## Credits
-* [JetBrains](https://www.jetbrains.com) for [Open Source Development license](https://www.jetbrains.com/community/opensource)
-
 ## License
 This project is licensed under the MIT License.
